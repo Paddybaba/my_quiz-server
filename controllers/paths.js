@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const studentRegistrationHandler = require("./studentRegister");
 const studentLoginHandler = require("./loginController");
+const teacherRegistrationHandler = require("./teacherRegister");
+const teacherLoginHandler = require("./loginTeacher");
 const questionHandler = require("./getQuestions");
+const questionAdder = require("./addQuestion");
 const authorHandler = require("./getAuthor");
 const { validateToken } = require("../middlewares/jwt");
 
@@ -20,7 +23,18 @@ router.post("/registerStudent", (req, res) => {
 router.post("/login", (req, res) => {
   studentLoginHandler.loginHandler(req, res);
 });
-
+////////// REGISTER  TEACHER  ////////
+router.post("/registerTeacher", (req, res) => {
+  teacherRegistrationHandler.registerTeacher(req, res);
+});
+/////////// LOGIN TEACHER ////////
+router.post("/loginTeacher", (req, res) => {
+  teacherLoginHandler.loginTeacher(req, res);
+});
+///////// ADD QUESTION ///////////
+router.post("/addQuestion", (req, res) => {
+  questionAdder.addQuestion(req, res);
+});
 ///////// GET QUESTIOSN //////////
 router.post("/getquest", (req, res) => {
   questionHandler.getQuestions(req, res);
