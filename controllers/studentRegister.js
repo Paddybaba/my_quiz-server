@@ -15,9 +15,9 @@ async function registerStudent(req, res) {
         password: hash,
       });
       console.log("Student Added successfully :", writeresult._id.toString());
-      res.json("Added");
+      res.json("Registered Successfully");
     } else {
-      res.send("This id is already registered");
+      res.status(400).send("This id is already registered");
     }
   } catch (err) {
     console.log(err.message);

@@ -27,7 +27,7 @@ router.post("/getquest", (req, res) => {
 });
 
 ////// GET AUTHORS /////////
-router.post("/getauthors", validateToken, (req, res) => {
+router.post("/getauthors", (req, res) => {
   authorHandler.getAuthors(req, res);
 });
 module.exports = router;

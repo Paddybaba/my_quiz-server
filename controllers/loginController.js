@@ -23,7 +23,6 @@ async function loginHandler(req, res) {
         } else {
           res.cookie("access-token", token, {
             maxAge: 60 * 60 * 24 * 1000,
-            httpOnly: true,
           });
           res.json({
             message: `${userData.student_name} signin successfully`,
