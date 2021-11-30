@@ -13,6 +13,9 @@ const questionSchema = new mongoose.Schema({
   year: {
     type: Number,
   },
+  class: {
+    type: Array,
+  },
   question: {
     type: "object",
     // required: [quest, options, correct_ans],
@@ -24,7 +27,15 @@ const questionSchema = new mongoose.Schema({
         type: "string",
       },
       quest: {
-        type: "string",
+        type: "object",
+        properties: {
+          image: {
+            type: String,
+          },
+          que: {
+            type: String,
+          },
+        },
       },
       options: {
         type: "array",

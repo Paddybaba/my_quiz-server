@@ -1,6 +1,12 @@
 const Question = require("../database/models/questionSchema");
 const Author = require("../database/models/authorSchema");
-
+///////////////////
+// 1. receive formdata from frontend
+// 2. create question object with empty images
+// 3. upload imahges to s3
+// 4. receive and add the locations to question object
+// 5. upload question to database
+//////////////////////
 async function addQuestion(req, res) {
   const question = req.body;
   console.log(question);
