@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 dotenv.config({ path: "./config.env" });
+const multer = require("multer");
 // require("./controllers/uploadFile");
 const app = express();
 //////  MIDDLEWARES  ////////
