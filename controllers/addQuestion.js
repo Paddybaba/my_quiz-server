@@ -1,8 +1,5 @@
 const Question = require("../database/models/questionSchema");
 const Author = require("../database/models/authorSchema");
-const multer = require("multer");
-const multerS3 = require("multer-s3");
-const aws = require("aws-sdk");
 
 ///////////////////
 // 1. receive formdata from frontend
@@ -31,9 +28,36 @@ const aws = require("aws-sdk");
 // });
 
 async function addQuestion(req, res) {
-  const question = req.body;
+  const question = JSON.parse(req.body.question);
   console.log("files :", req.files);
   try {
+    const imageFiles = req.files;
+    var questionFile = imageFiles.filter((obj) => {
+      return obj.originalname == "questionImage";
+    });
+    var optionAFile = imageFiles.filter((obj) => {
+      return obj.originalname == "optionA";
+    });
+    var optionBFile = imageFiles.filter((obj) => {
+      return obj.originalname == "optionB";
+    });
+    var optionCFile = imageFiles.filter((obj) => {
+      return obj.originalname == "optionC";
+    });
+    var optionDFile = imageFiles.filter((obj) => {
+      return obj.originalname == "optionD";
+    });
+
+    if (questionFile[0])
+      question.question.quest.image = questionFile[0].location;
+    if (optionAFile[0])
+      question.question.options[0].image = optionAFile[0].location;
+    if (optionBFile[0])
+      question.question.options[1].image = optionBFile[0].location;
+    if (optionCFile[0])
+      question.question.options[2].image = optionCFile[0].location;
+    if (optionDFile[0])
+      question.question.options[3].image = optionDFile[0].location;
     const writeresult = await Question.create(question);
 
     if (writeresult) {
