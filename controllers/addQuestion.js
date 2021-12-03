@@ -11,28 +11,28 @@ const aws = require("aws-sdk");
 // 4. receive and add the locations to question object
 // 5. upload question to database
 //////////////////////
-const s3 = new aws.S3({
-  accessKeyId: process.env.ACCESS_KEY,
-  secretAccessKey: process.env.SECRET_ACCESS_KEY,
-});
+// const s3 = new aws.S3({
+//   accessKeyId: process.env.ACCESS_KEY,
+//   secretAccessKey: process.env.SECRET_ACCESS_KEY,
+// });
 
-const uploadToS3 = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: "paddy-photo-bucket",
-    acl: "public-read",
-    metadata: function (req, file, cb) {
-      cb(null, { fieldName: file.fieldname });
-    },
-    key: function (req, file, cb) {
-      cb(null, Date.now().toString());
-    },
-  }),
-});
+// const uploadToS3 = multer({
+//   storage: multerS3({
+//     s3: s3,
+//     bucket: "paddy-photo-bucket",
+//     acl: "public-read",
+//     metadata: function (req, file, cb) {
+//       cb(null, { fieldName: file.fieldname });
+//     },
+//     key: function (req, file, cb) {
+//       cb(null, `${Date.now().toString()}-${file.originalname}`);
+//     },
+//   }),
+// });
 
 async function addQuestion(req, res) {
   const question = req.body;
-  console.log("file :", req.file);
+  console.log("files :", req.files);
   try {
     const writeresult = await Question.create(question);
 
