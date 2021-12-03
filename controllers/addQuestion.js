@@ -32,7 +32,7 @@ const uploadToS3 = multer({
 
 async function addQuestion(req, res) {
   const question = req.body;
-  console.log(req.data);
+  console.log("file :", req.file);
   try {
     const writeresult = await Question.create(question);
 

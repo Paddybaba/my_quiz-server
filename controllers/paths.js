@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
 const studentRegistrationHandler = require("./studentRegister");
 const studentLoginHandler = require("./loginController");
 const teacherRegistrationHandler = require("./teacherRegister");
@@ -10,7 +11,7 @@ const authorHandler = require("./getAuthor");
 const { validateToken } = require("../middlewares/jwt");
 
 const jwt = require("jsonwebtoken");
-
+let upload = multer({ storage: multer.memoryStorage() });
 router.get("/", (req, res) => {
   res.send("Hello i am listening for questions");
 });
@@ -32,7 +33,7 @@ router.post("/loginTeacher", (req, res) => {
   teacherLoginHandler.loginTeacher(req, res);
 });
 ///////// ADD QUESTION ///////////
-router.post("/addQuestion", (req, res) => {
+router.post("/addQuestion", upload.single("quest_image"), (req, res) => {
   questionAdder.addQuestion(req, res);
 });
 ///////// GET QUESTIOSN //////////
