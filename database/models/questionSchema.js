@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.set("debug", true);
+// mongoose.set("debug", true);
 const questionSchema = new mongoose.Schema({
   subject: {
     type: "string",
@@ -42,6 +42,9 @@ const questionSchema = new mongoose.Schema({
       },
       correct_ans: {
         type: "string",
+      },
+      explantion: {
+        type: String,
       },
     },
   },
