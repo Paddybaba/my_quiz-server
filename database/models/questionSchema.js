@@ -16,9 +16,7 @@ const questionSchema = new mongoose.Schema({
   class: {
     type: Array,
   },
-  explanation : {
-    type : String
-  },
+
   question: {
     type: "object",
     // required: [quest, options, correct_ans],
@@ -46,7 +44,7 @@ const questionSchema = new mongoose.Schema({
       correct_ans: {
         type: "string",
       },
-      explantion: {
+      explanation: {
         type: String,
       },
     },
