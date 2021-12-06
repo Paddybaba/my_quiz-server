@@ -14,7 +14,7 @@ const questionSchema = new mongoose.Schema({
     type: Number,
   },
   class: {
-    type: Array,
+    type: "String",
   },
 
   question: {
