@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const AWS = require("aws-sdk")
+const AWS = require("aws-sdk");
 const multer = require("multer");
-const multerS3 = require("multer-s3")
+const multerS3 = require("multer-s3");
 const studentRegistrationHandler = require("./studentRegister");
 const studentLoginHandler = require("./loginController");
 const teacherRegistrationHandler = require("./teacherRegister");
@@ -10,6 +10,8 @@ const teacherLoginHandler = require("./loginTeacher");
 const questionHandler = require("./getQuestions");
 const questionAdder = require("./addQuestion");
 const authorHandler = require("./getAuthor");
+const teacherRegistrationHandler2 = require("./teacherRegister2");
+const activateTeacherHandler = require("./activateTeacher");
 const { validateToken } = require("../middlewares/jwt");
 
 const jwt = require("jsonwebtoken");
@@ -24,7 +26,7 @@ const uploadToS3 = multer({
   storage: multerS3({
     s3: s3,
     bucket: "paddy-photo-bucket",
-    contentType : multerS3.AUTO_CONTENT_TYPE,
+    contentType: multerS3.AUTO_CONTENT_TYPE,
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
@@ -49,6 +51,15 @@ router.post("/login", (req, res) => {
 router.post("/registerTeacher", (req, res) => {
   teacherRegistrationHandler.registerTeacher(req, res);
 });
+////////// REGISTER  PENDING TEACHER  ////////
+router.post("/registerTeacher2", (req, res) => {
+  teacherRegistrationHandler2.registerTeacher(req, res);
+});
+///////// ACTIVATE TEACHER ////////
+router.get("/api/activate", (req, res) => {
+  activateTeacherHandler.activateTeacher(req, res);
+});
+
 /////////// LOGIN TEACHER ////////
 router.post("/loginTeacher", (req, res) => {
   teacherLoginHandler.loginTeacher(req, res);

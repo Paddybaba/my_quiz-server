@@ -13,6 +13,12 @@ const teacherSchema = new mongoose.Schema({
   teacher_name: {
     type: String,
   },
+  city: {
+    type: String,
+  },
+  school: {
+    type: String,
+  },
 });
 
 teacherSchema.methods.generateToken = async function () {
