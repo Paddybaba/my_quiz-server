@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-mongoose.set("debug", true);
+// mongoose.set("debug", true);
 const questionSchema = new mongoose.Schema({
   subject: {
     type: "string",
@@ -14,11 +14,9 @@ const questionSchema = new mongoose.Schema({
     type: Number,
   },
   class: {
-    type: Array,
+    type: "String",
   },
-  explanation : {
-    type : String
-  },
+
   question: {
     type: "object",
     // required: [quest, options, correct_ans],
@@ -45,6 +43,9 @@ const questionSchema = new mongoose.Schema({
       },
       correct_ans: {
         type: "string",
+      },
+      explanation: {
+        type: String,
       },
     },
   },
