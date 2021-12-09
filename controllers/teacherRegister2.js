@@ -40,10 +40,11 @@ async function registerTeacher(req, res) {
             console.log(error);
           } else {
             console.log("Email sent: " + info.response);
+            res.json(
+              "Thanks for registering, check your mail for activation link"
+            );
           }
         });
-      
-        res.json("Thanks for registering, check your mail for activation link");
       }
     } else {
       res.status(400).send("This id is already registered");
