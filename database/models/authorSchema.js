@@ -5,6 +5,10 @@ const authorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  teacher_id : {
+    type: String,
+    required: true
+  }
 });
 
 const Author = mongoose.model("Author", authorSchema);
