@@ -12,6 +12,7 @@ const questionAdder = require("./addQuestion");
 const authorHandler = require("./getAuthor");
 const teacherRegistrationHandler2 = require("./teacherRegister2");
 const activateTeacherHandler = require("./activateTeacher");
+const newScoreEntryHabdler = require("./newScoreEntry");
 const { validateToken } = require("../middlewares/jwt");
 
 const jwt = require("jsonwebtoken");
@@ -76,5 +77,13 @@ router.post("/getquest", (req, res) => {
 ////// GET AUTHORS /////////
 router.post("/getauthors", (req, res) => {
   authorHandler.getAuthors(req, res);
+});
+
+/////// SCORE and TEST ///////
+router.post("/newScoreEntry", (req, res) => {
+  newScoreEntryHabdler.newScoreEntry(req, res);
+});
+router.post("/getScoreCardEntry", (req, res) => {
+  newScoreEntryHabdler.getScoreCardEntry(req, res);
 });
 module.exports = router;
