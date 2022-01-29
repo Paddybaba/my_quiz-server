@@ -13,6 +13,7 @@ const authorHandler = require("./getAuthor");
 const teacherRegistrationHandler2 = require("./teacherRegister2");
 const activateTeacherHandler = require("./activateTeacher");
 const newScoreEntryHabdler = require("./newScoreEntry");
+const getMyQuestions = require("./getMyQuestions");
 const { validateToken } = require("../middlewares/jwt");
 
 const jwt = require("jsonwebtoken");
@@ -73,7 +74,14 @@ router.post("/addQuestion", uploadToS3.array("images"), (req, res) => {
 router.post("/getquest", (req, res) => {
   questionHandler.getQuestions(req, res);
 });
-
+//////// GET QUESTIONS FOR TEACHER ////
+router.post("/getmyquestions", (req, res) => {
+  getMyQuestions.getMyQuestions(req, res);
+});
+/////// DELETE QUESTION ///////
+router.post("/deletequestion", (req, res) => {
+  questionHandler.deleteQuestion(req, res);
+});
 ////// GET AUTHORS /////////
 router.post("/getauthors", (req, res) => {
   authorHandler.getAuthors(req, res);

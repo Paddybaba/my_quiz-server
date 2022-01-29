@@ -22,6 +22,20 @@ async function getQuestions(req, res) {
   }
 }
 
+//////  DELETE QUESTION /////
+async function deleteQuestion(req, res) {
+  const id = req.body.id;
+  console.log("id:", id);
+  try {
+    const response = await Question.deleteOne({ _id: id });
+    console.log(response);
+    res.json("Deleted Successfully");
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   getQuestions: getQuestions,
+  deleteQuestion: deleteQuestion,
 };
