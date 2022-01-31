@@ -14,6 +14,7 @@ const teacherRegistrationHandler2 = require("./teacherRegister2");
 const activateTeacherHandler = require("./activateTeacher");
 const newScoreEntryHabdler = require("./newScoreEntry");
 const getMyQuestions = require("./getMyQuestions");
+const questionBankHandler = require("./publishQuestionBank");
 const { validateToken } = require("../middlewares/jwt");
 
 const jwt = require("jsonwebtoken");
@@ -81,6 +82,10 @@ router.post("/getmyquestions", (req, res) => {
 /////// DELETE QUESTION ///////
 router.post("/deletequestion", (req, res) => {
   questionHandler.deleteQuestion(req, res);
+});
+///////// PUBLISH QUESTION BANK ///////
+router.post("/publishQuestionBank", (req, res) => {
+  questionBankHandler.publishQuestionBank(req, res);
 });
 ////// GET AUTHORS /////////
 router.post("/getauthors", (req, res) => {
