@@ -3,6 +3,7 @@ const router = express.Router();
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const multerS3 = require("multer-s3");
+
 const studentRegistrationHandler = require("./studentRegister");
 const studentLoginHandler = require("./loginController");
 const teacherRegistrationHandler = require("./teacherRegister");
