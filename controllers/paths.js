@@ -19,6 +19,7 @@ const questionBankHandler = require("./publishQuestionBank");
 const { validateToken } = require("../middlewares/jwt");
 
 const jwt = require("jsonwebtoken");
+const questionBank = require("../database/models/questionBank");
 let upload = multer({ storage: multer.memoryStorage() });
 AWS.config.update({
   accessKeyId: process.env.ACCESS_KEY,
@@ -84,9 +85,12 @@ router.post("/getmyquestions", (req, res) => {
 router.post("/deletequestion", (req, res) => {
   questionHandler.deleteQuestion(req, res);
 });
-///////// PUBLISH QUESTION BANK ///////
-router.post("/publishQuestionBank", (req, res) => {
+///////// QUESTION BANK ///////
+router.post("/publishTest", (req, res) => {
   questionBankHandler.publishQuestionBank(req, res);
+});
+router.post("/getpublishedtest", (req, res) => {
+  questionBankHandler.getPublishedTest(req, res);
 });
 ////// GET AUTHORS /////////
 router.post("/getauthors", (req, res) => {

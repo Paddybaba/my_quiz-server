@@ -9,7 +9,7 @@ const questionBankSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  
+
   author: {
     type: String,
     required: true,
@@ -17,12 +17,21 @@ const questionBankSchema = new mongoose.Schema({
   year: {
     type: Number,
   },
-  standard:{
-    type:String
+  standard: {
+    type: String,
   },
   published: {
     type: Date,
-  }
+  },
+  questionList: {
+    type: Array,
+  },
+  accessCode: {
+    type: String,
+  },
+  keywords: {
+    type: String,
+  },
 });
 
 const questionBank = mongoose.model("questionBank", questionBankSchema);
