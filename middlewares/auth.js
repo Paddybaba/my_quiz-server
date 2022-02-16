@@ -1,15 +1,17 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
+  console.log(req.headers);
   const token =
     req.body.token ||
     req.query.token ||
     req.headers["mcq-access-token"] ||
     req.cookies["mcq-access-token"];
 
-  if (!token)
+  if (!token) {
+    console.log("no token");
     return res.status(403).json("User not authenticated , goto login");
-
+  }
   try {
     const isValid = jwt.verify(token, process.env.SECRET_KEY_JWT);
 

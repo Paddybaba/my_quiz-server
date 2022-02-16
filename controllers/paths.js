@@ -107,6 +107,6 @@ router.post("/getScoreCardEntry", (req, res) => {
 
 ////// TESTING ////////
 router.post("/welcome", verifyToken, (req, res) => {
-  res.status(200).send("Welcome you are verified !!!");
+  res.status(200).json("Welcome you are verified !!!");
 });
 module.exports = router;
