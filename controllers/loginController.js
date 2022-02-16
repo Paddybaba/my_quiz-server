@@ -3,34 +3,36 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 async function loginHandler(req, res) {
-  const { student_id, password } = req.body;
   try {
+    //Get student input
+    const { student_id, password } = req.body;
+
+    // Validate user input
     if (!student_id || !password) {
       return res
         .status(400)
         .json({ error: "Please fill the data", code: "err" });
     } else {
-      const userData = await Student.findOne({ student_id: student_id });
-      if (!userData) {
+      // Check if user exists in our database
+      const student = await Student.findOne({ student_id: student_id });
+      if (!student) {
         res.status(400).json({ error: "Invalid username", code: "err" });
       } else {
-        const passwordMatch = await bcrypt.compare(password, userData.password);
-        const token = await userData.generateToken();
-        console.log(token);
-
+        // Compare credentials
+        const passwordMatch = await bcrypt.compare(password, student.password);
         if (!passwordMatch) {
           res.status(400).json({ error: "Invalid password", code: "err" });
         } else {
-          res.cookie("access-token", token, {
-            maxAge: 60 * 60 * 24 * 1000,
-          });
-          res.json({
-            message: `${userData.student_name} signin successfully`,
-            student: {
-              student_name: userData.student_name,
-              student_id: userData.student_id,
-            },
-          });
+          // Create token if password matches
+          const token = jwt.sign(
+            { _id: student._id },
+            process.env.SECRET_KEY_JWT,
+            { expiresIn: "720h" }
+          );
+
+          // save user token
+          student.token = token;
+          res.status(201).json(student);
         }
       }
     }

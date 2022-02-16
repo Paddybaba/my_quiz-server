@@ -16,9 +16,9 @@ const activateTeacherHandler = require("./activateTeacher");
 const newScoreEntryHabdler = require("./newScoreEntry");
 const getMyQuestions = require("./getMyQuestions");
 const questionBankHandler = require("./publishQuestionBank");
-const { validateToken } = require("../middlewares/jwt");
+const verifyToken = require("../middlewares/auth");
 
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const questionBank = require("../database/models/questionBank");
 let upload = multer({ storage: multer.memoryStorage() });
 AWS.config.update({
@@ -103,5 +103,10 @@ router.post("/newScoreEntry", (req, res) => {
 });
 router.post("/getScoreCardEntry", (req, res) => {
   newScoreEntryHabdler.getScoreCardEntry(req, res);
+});
+
+////// TESTING ////////
+router.post("/welcome", verifyToken, (req, res) => {
+  res.status(200).send("Welcome you are verified !!!");
 });
 module.exports = router;
