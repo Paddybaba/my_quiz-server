@@ -14,7 +14,6 @@ const verifyToken = (req, res, next) => {
   }
   try {
     const isValid = jwt.verify(token, process.env.SECRET_KEY_JWT);
-
     req.user = isValid;
     // req.authenticated = true;
     // return next();

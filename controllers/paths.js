@@ -11,6 +11,7 @@ const teacherLoginHandler = require("./loginTeacher");
 const questionHandler = require("./getQuestions");
 const questionAdder = require("./addQuestion");
 const authorHandler = require("./getAuthor");
+const studentHandler = require("./getStudent");
 const teacherRegistrationHandler2 = require("./teacherRegister2");
 const activateTeacherHandler = require("./activateTeacher");
 const newScoreEntryHabdler = require("./newScoreEntry");
@@ -18,8 +19,9 @@ const getMyQuestions = require("./getMyQuestions");
 const questionBankHandler = require("./publishQuestionBank");
 const verifyToken = require("../middlewares/auth");
 
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const questionBank = require("../database/models/questionBank");
+const { verify } = require("jsonwebtoken");
 let upload = multer({ storage: multer.memoryStorage() });
 AWS.config.update({
   accessKeyId: process.env.ACCESS_KEY,
@@ -93,7 +95,7 @@ router.post("/getpublishedtest", (req, res) => {
   questionBankHandler.getPublishedTest(req, res);
 });
 ////// GET AUTHORS /////////
-router.post("/getauthors", (req, res) => {
+router.post("/getauthors", verifyToken, (req, res) => {
   authorHandler.getAuthors(req, res);
 });
 
@@ -109,4 +111,18 @@ router.post("/getScoreCardEntry", (req, res) => {
 router.post("/welcome", verifyToken, (req, res) => {
   res.status(200).json("Welcome you are verified !!!");
 });
+
+router.post("/getStudent", verifyToken, (req, res) => {
+  studentHandler.getStudent(req, res);
+});
+
+// function parseJwt(token) {
+//   if (!token) {
+//     return;
+//   }
+//   const base64Url = token.split(".")[1];
+//   const base64 = base64Url.replace("-", "+").replace("_", "/");
+//   return base64;
+// }
+
 module.exports = router;

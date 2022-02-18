@@ -21,7 +21,7 @@ const questionBankSchema = new mongoose.Schema({
     type: String,
   },
   published: {
-    type: Date,
+    type: String,
   },
   questionList: {
     type: Array,
