@@ -3,28 +3,40 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 async function loginTeacher(req, res) {
-  const { teacher_id, password } = req.body;
   try {
+    // Get teacher credentials
+    const { teacher_id, password } = req.body;
+
+    // Validate ID and password
     if (!teacher_id || !password) {
       return res
         .status(400)
         .json({ error: "Please fill the data", code: "err" });
     } else {
-      const userData = await Teacher.findOne({ teacher_id: teacher_id });
-      if (!userData) {
+      // Find userID and check  password in database
+      const myTeacher = await Teacher.findOne({ teacher_id: teacher_id });
+      console.log(myTeacher);
+      if (!myTeacher) {
         res.status(400).json({ error: "Invalid username", code: "err" });
       } else {
-        const passwordMatch = await bcrypt.compare(password, userData.password);
+        const passwordMatch = await bcrypt.compare(
+          password,
+          myTeacher.password
+        );
         if (!passwordMatch) {
           res.status(400).json({ error: "Invalid password", code: "err" });
         } else {
-          res.json({
-            message: `${userData.teacher_name} signin successfully`,
-            teacher: {
-              teacher_name: userData.teacher_name,
-              teacher_id: userData.teacher_id,
-            },
-          });
+          // Create token if password matches
+          const token = jwt.sign(
+            { _id: myTeacher._id },
+            process.env.SECRET_KEY_JWT,
+            { expiresIn: "720h" }
+          );
+
+          // save token to teacher Object
+          myTeacher.token = token;
+
+          res.status(200).json(myTeacher);
         }
       }
     }

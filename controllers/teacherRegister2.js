@@ -1,5 +1,6 @@
 const Teacher = require("../database/models/teacherSchema");
 const pendingTeacher = require("../database/models/pendingTeacher");
+// const jwt = require("jsonwebtoken");
 const bcryt = require("bcryptjs");
 var nodemailer = require("nodemailer");
 const { google } = require("googleapis");
@@ -35,27 +36,40 @@ var transporter = nodemailer.createTransport({
 
 async function registerTeacher(req, res) {
   try {
+    //Get teacher details
     const { teacher_name, teacher_id, password, city, school } = req.body;
 
+    // Chech whether teacher already present in database
     const teacherExists = await Teacher.findOne({ teacher_id: teacher_id });
 
     if (!teacherExists) {
+      // Encrypt password
       const hash = await bcryt.hash(password, 10);
 
-      const writeresult = await pendingTeacher.create({
+      // Create teacher in databse
+      const newTeacher = await pendingTeacher.create({
         teacher_id: teacher_id,
         teacher_name: teacher_name,
         password: hash,
         city: city,
         school: school,
       });
-      console.log("teacher Added successfully :", writeresult._id.toString());
-      if (writeresult) {
+      console.log("teacher Added successfully :", newTeacher._id.toString());
+
+      // // Create token for newTeacher
+      // const token = jwt.sign({ _id: teacher_id }, process.env.SECRET_KEY_JWT, {
+      //   expiresIn: "720h",
+      // });
+
+      // // add token to teacher Object
+      // newTeacher.token = token;
+
+      if (newTeacher) {
         var mailOptions = {
           from: "paddybaba@gmail.com",
           to: teacher_id,
           subject: "Activation Link for Teacher Registration",
-          text: `click on the activation link : https://quiz-server-paddy.herokuapp.com/api/activate/?pending_user=${writeresult._id.toString()}`,
+          text: `click on the activation link : https://quiz-server-paddy.herokuapp.com/api/activate/?pending_user=${newTeacher._id.toString()}`,
         };
         transporter.sendMail(mailOptions, function (error, info) {
           if (error) {

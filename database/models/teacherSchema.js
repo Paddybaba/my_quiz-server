@@ -19,6 +19,9 @@ const teacherSchema = new mongoose.Schema({
   school: {
     type: String,
   },
+  token: {
+    type: String,
+  },
 });
 
 teacherSchema.methods.generateToken = async function () {

@@ -10,6 +10,7 @@ const teacherRegistrationHandler = require("./teacherRegister");
 const teacherLoginHandler = require("./loginTeacher");
 const questionHandler = require("./getQuestions");
 const questionAdder = require("./addQuestion");
+const questionEditor = require("./editQuestion");
 const authorHandler = require("./getAuthor");
 const studentHandler = require("./getStudent");
 const teacherRegistrationHandler2 = require("./teacherRegister2");
@@ -74,6 +75,10 @@ router.post("/loginTeacher", (req, res) => {
 ///////// ADD QUESTION ///////////
 router.post("/addQuestion", uploadToS3.array("images"), (req, res) => {
   questionAdder.addQuestion(req, res);
+});
+////// EDIT QUESTION ///////////
+router.post("/editQuestion", uploadToS3.array("images"), (req, res) => {
+  questionEditor.editQuestion(req, res);
 });
 ///////// GET QUESTIOSN //////////
 router.post("/getquest", (req, res) => {
