@@ -6,6 +6,7 @@ async function loginHandler(req, res) {
   try {
     //Get student input
     const { student_id, password } = req.body;
+    console.log(student_id);
 
     // Validate user input
     if (!student_id || !password) {
@@ -15,6 +16,7 @@ async function loginHandler(req, res) {
     } else {
       // Check if user exists in our database
       const student = await Student.findOne({ student_id: student_id });
+      console.log("student", student);
       if (!student) {
         res.status(400).json({ error: "Invalid username", code: "err" });
       } else {
@@ -32,6 +34,7 @@ async function loginHandler(req, res) {
 
           // save user token
           student.token = token;
+          console.log(token);
           res.status(201).json(student);
         }
       }
