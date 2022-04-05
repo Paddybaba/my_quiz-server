@@ -67,7 +67,7 @@ async function editQuestion(req, res) {
       { new: true }
     );
     console.log("edited Question :", writeresult);
-    res.status(200).json("Question updated successfully");
+    res.status(200).json(writeresult);
   } catch (err) {
     console.log(err.message);
   }
