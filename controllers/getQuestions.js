@@ -9,7 +9,7 @@ async function getQuestions(req, res) {
       return;
     } else {
       const questions = await Question.find({
-        author: options.author,
+        authorname: options.author,
         subject: options.subject,
         year: options.year,
         class: options.standard,

@@ -18,6 +18,7 @@ const activateTeacherHandler = require("./activateTeacher");
 const newScoreEntryHabdler = require("./newScoreEntry");
 const getMyQuestions = require("./getMyQuestions");
 const questionBankHandler = require("./publishQuestionBank");
+const updateQHandler = require("./updateQ");
 const verifyToken = require("../middlewares/auth");
 
 const jwt = require("jsonwebtoken");
@@ -129,5 +130,7 @@ router.post("/getStudent", verifyToken, (req, res) => {
 //   const base64 = base64Url.replace("-", "+").replace("_", "/");
 //   return base64;
 // }
-
+router.post("/updateQ", (req, res) => {
+  updateQHandler.updateQ(req, res);
+});
 module.exports = router;

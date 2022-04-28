@@ -7,6 +7,9 @@ const questionSchema = new mongoose.Schema({
   author: {
     type: "string",
   },
+  authorname: {
+    type: "string",
+  },
   model: {
     type: "string",
   },
