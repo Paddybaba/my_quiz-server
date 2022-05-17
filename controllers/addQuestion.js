@@ -62,15 +62,18 @@ async function addQuestion(req, res) {
 
     if (writeresult) {
       const authorExists = await Author.findOne({
-        authorname: question.author,
+        author: question.author,
       });
       if (!authorExists) {
-        await Author.create({ authorname: question.author });
+        await Author.create({
+          authorname: question.authorname,
+          author: question.author,
+        });
       } else {
         console.log("author is already present in database");
       }
 
-      res.status(200).json("Question added successfully");
+      res.status(200).json(question);
     } else {
       console.log("Question not added");
     }
