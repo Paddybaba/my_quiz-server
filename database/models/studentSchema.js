@@ -17,6 +17,12 @@ const studentSchema = new mongoose.Schema({
   token: {
     type: String,
   },
+  photo: {
+    type: String,
+  },
+  savedTest: {
+    type: Object,
+  },
 });
 
 // studentSchema.methods.generateToken = async function () {

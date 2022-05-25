@@ -13,6 +13,7 @@ const questionAdder = require("./addQuestion");
 const questionEditor = require("./editQuestion");
 const authorHandler = require("./getAuthor");
 const studentHandler = require("./getStudent");
+const saveStudentTestHandler = require("./saveStudentTest");
 const teacherRegistrationHandler2 = require("./teacherRegister2");
 const activateTeacherHandler = require("./activateTeacher");
 const newScoreEntryHabdler = require("./newScoreEntry");
@@ -111,6 +112,9 @@ router.post("/newScoreEntry", (req, res) => {
 });
 router.post("/getScoreCardEntry", (req, res) => {
   newScoreEntryHabdler.getScoreCardEntry(req, res);
+});
+router.post("/savestudenttest", (req, res) => {
+  saveStudentTestHandler.saveStudentTest(req, res);
 });
 
 ////// TESTING ////////
