@@ -20,6 +20,20 @@ async function saveStudentTest(req, res) {
   }
 }
 
+async function retrieveSavedTest(req, res) {
+  try {
+    //Get student id from request
+    const student_id = req.body.student_id;
+    // find and send savedTest to frontend
+    const student = await Student.findOne({ student_id: student_id });
+    res.status(200).json(student.savedTest);
+    // console.log(student.savedTest);
+  } catch (err) {
+    console.log(err.message);
+  }
+}
+
 module.exports = {
   saveStudentTest: saveStudentTest,
+  retrieveSavedTest: retrieveSavedTest,
 };

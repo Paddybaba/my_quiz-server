@@ -116,6 +116,9 @@ router.post("/getScoreCardEntry", (req, res) => {
 router.post("/savestudenttest", (req, res) => {
   saveStudentTestHandler.saveStudentTest(req, res);
 });
+router.post("/retrieveSavedTest", (req, res) => {
+  saveStudentTestHandler.retrieveSavedTest(req, res);
+});
 
 ////// TESTING ////////
 router.post("/welcome", verifyToken, (req, res) => {
